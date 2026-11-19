@@ -37,7 +37,7 @@ jobs:
         run: npm test
       - name: Fetch data
         env:
-          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API || secrets.ODDS_API_KEY }}
           WEEK: ${{ github.event.inputs.week }}
         run: |
           if [ -n "$WEEK" ]; then node scripts/fetch.mjs --week "$WEEK"; else node scripts/fetch.mjs; fi

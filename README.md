@@ -12,7 +12,7 @@ Read-only: it never changes your Sleeper lineup and has no betting features.
 1. **Get a free odds key (optional but recommended).** Sign up at <https://the-odds-api.com> (free tier: 500 requests/month; this site uses about 60).
    Without a key the site uses the last saved lines, and you can type lines in on the *Games & weather* tab.
 2. **Add the key as a repo secret.** GitHub → this repo → *Settings* → *Secrets and variables* → *Actions* → *New repository secret*.
-   Name: `ODDS_API_KEY`, value: your key. The key stays in GitHub Actions and is never sent to the browser.
+   Name: `ODDS_API` (or `ODDS_API_KEY`), value: your key. The key stays in GitHub Actions and is never sent to the browser.
 3. **Merge to the default branch.** Scheduled workflows only run on the default branch (`main`).
 4. **Enable Pages.** *Settings* → *Pages* → *Build and deployment* → Source: **Deploy from a branch**, Branch: `main`, folder `/ (root)`.
    The site appears at `https://<owner>.github.io/<repo>/` within a minute or two.
