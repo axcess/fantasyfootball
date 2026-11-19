@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f5f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141517" media="(prefers-color-scheme: dark)">
+<title>Fantasy Command Center</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='16' rx='14' ry='9' transform='rotate(-35 16 16)' fill='%231f7a4d'/%3E%3Cpath d='M11 21 21 11M13 15l4 4M15 13l4 4' stroke='%23fff' stroke-width='1.6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <h1 id="title">Fantasy Command Center</h1>
+    <div class="sub" id="subtitle">Loading…</div>
+  </div>
+  <div class="mu hide" id="mu">
+    <div><div class="t" id="mu-me-t">You</div><div class="p" id="mu-me">–</div></div>
+    <div class="vs">vs</div>
+    <div><div class="t" id="mu-opp-t">Opponent</div><div class="p" id="mu-opp">–</div></div>
+  </div>
+</header>
+
+<div id="banners"></div>
+
+<nav id="tabs" aria-label="Sections">
+  <button data-t="lineup" class="on">Lineup</button>
+  <button data-t="waivers">Waivers</button>
+  <button data-t="risk">Risk list</button>
+  <button data-t="games">Games &amp; weather</button>
+  <button data-t="model">Model weights</button>
+  <button data-t="plan">Weekly plan</button>
+  <button data-t="settings">Settings</button>
+</nav>
+
+<section id="lineup">
+  <div class="card">
+    <h2>Start / sit <span class="pill" id="lu-note"></span></h2>
+    <div class="asof" id="lu-asof"></div>
+    <div id="lu"></div>
+    <a class="btn link" id="sleeper-link" target="_blank" rel="noopener">Open my team in Sleeper ↗</a>
+  </div>
+  <div class="card"><h2>Bench</h2><div id="bn"></div></div>
+  <div class="card"><h2 id="opp-h">Opponent</h2><div id="opp"></div></div>
+</section>
+
+<section id="waivers" class="hide">
+  <div class="card">
+    <h2>Ranked adds</h2>
+    <div class="asof" id="wv-asof"></div>
+    <p class="note" id="wv-note"></p>
+    <div id="wv"></div>
+  </div>
+  <div class="card note">
+    <b class="ink">Labels.</b> <span class="tag claim">Claim now</span> worth dropping to the back of the waiver order.
+    <span class="tag free">Free agent</span> grab it now; it costs no priority.
+    <span class="tag hold">Hold priority</span> on waivers, but not worth giving up your spot.
+    <span class="tag forced">Locked</span> his game has started; he can't be added until waivers clear.
+  </div>
+</section>
+
+<section id="risk" class="hide">
+  <div class="card">
+    <h2>Watch before kickoff</h2>
+    <div class="asof" id="rk-asof"></div>
+    <div id="rk"></div>
+  </div>
+  <div class="card hide" id="depth-card"><h2>Depth-chart changes on your roster</h2><div id="depth"></div></div>
+</section>
+
+<section id="games" class="hide">
+  <div class="card">
+    <h2>Vegas lines, team totals and forecast <button class="btn sm" id="edit-lines">Edit lines</button></h2>
+    <div class="asof" id="gm-asof"></div>
+    <div class="scroll"><table id="gm"></table></div>
+    <div class="row-btns hide" id="lines-btns"><button class="btn" id="save-lines">Save lines</button><button class="btn" id="clear-lines">Clear manual lines</button></div>
+    <p class="note" id="gm-note"></p>
+  </div>
+</section>
+
+<section id="model" class="hide">
+  <div class="card">
+    <h2>Scoring weights</h2>
+    <p class="note">Each factor is a 0–100 percentile against starting-caliber players at the same position. Move a slider and every score, the lineup and the waiver list recompute. Out, Doubtful, IR, PUP, suspended and bye-week players stay on the bench at any score.</p>
+    <div id="wts"></div>
+    <button class="btn" id="reset">Reset to 30 / 25 / 20 / 15 / 10</button>
+  </div>
+  <div class="card note">
+    <b class="ink">What feeds each factor</b>
+    <ul class="cl">
+      <li><b>Opportunity:</b> last 3 games. RB: carries + 1.5×targets + 3×red-zone looks + snap share. WR/TE: 1.5×targets + carries + 3×red-zone targets + snap share. QB: attempts + 2×rushes + 3×red zone. K/DEF: Sleeper's weekly projection.</li>
+      <li><b>Recent form:</b> PPR points per game over the last 3 games played.</li>
+      <li><b>Matchup:</b> PPR points the opponent has allowed per game to that position this season.</li>
+      <li><b>Game environment:</b> implied team total, minus a penalty outdoors for wind 15+ mph, heavy rain or sub-30°F (×1.5 for kickers; weather helps a DEF).</li>
+      <li><b>Season average:</b> PPR points per game this season.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="plan" class="hide">
+  <div class="card">
+    <h2>Weekly rhythm</h2>
+    <div class="sched" id="sched"></div>
+  </div>
+  <div class="card note">
+    <b class="ink">Caveats</b>
+    <ul class="cl">
+      <li>The weights are your own starting point, not a proven model. Tune them on the Model tab after a few weeks.</li>
+      <li>Projections are estimates, and late scratches still happen.</li>
+      <li>Practice status comes from the NFL.com report as of the last data refresh. Re-check on Sunday morning.</li>
+      <li>Depth-chart changes compare Sleeper's depth order against last week's saved snapshot.</li>
+      <li>Odds are read-only inputs. This site has no betting features.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="settings" class="hide">
+  <div class="card">
+    <h2>League</h2>
+    <label class="fld">Sleeper league ID<input id="set-league" inputmode="numeric" autocomplete="off"></label>
+    <label class="fld">Your team<select id="set-user"></select></label>
+    <label class="fld">…or a Sleeper username<input id="set-username" autocomplete="off" placeholder="e.g. Esau07"></label>
+    <div class="row-btns"><button class="btn" id="save-settings">Save and reload</button><button class="btn" id="reset-settings">Restore defaults</button></div>
+    <p class="note" id="set-msg"></p>
+  </div>
+  <div class="card">
+    <h2>Data sources</h2>
+    <div id="src"></div>
+    <p class="note">Sleeper league data (rosters, matchups, transactions, schedule status, trending) is fetched live from your browser. Players, game logs, odds, weather, the NFL.com injury report and depth snapshots come from the GitHub Action, which refreshes on a schedule. <a id="actions-link" target="_blank" rel="noopener">Run it now ↗</a></p>
+  </div>
+</section>
+<footer class="note">Read-only. Lineup changes happen in Sleeper.</footer>
+</div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

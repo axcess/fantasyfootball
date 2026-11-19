@@ -1,0 +1,52 @@
+name: Refresh data
+
+# Owner is in America/Chicago. Cron is UTC and GitHub can start scheduled runs late,
+# so times are off the hour. CST = UTC-6 (Nov-Mar), CDT = UTC-5 (Sep-early Nov).
+on:
+  schedule:
+    - cron: "17 20 * * 2"   # Tue ~2:17pm CST: waiver run
+    - cron: "17 20 * * 3"   # Wed ~2:17pm CST: waiver run (+ first practice report)
+    - cron: "47 20 * * 4"   # Thu ~2:47pm CST: TNF check
+    - cron: "13 22 * * 5"   # Fri ~4:13pm CST: game designations are out
+    - cron: "41 14 * * 0"   # Sun ~8:41am CST: morning news
+    - cron: "43 16 * * 0"   # Sun ~10:43am CST: after inactives for noon games
+    - cron: "7 23 * * 1"    # Mon ~5:07pm CST: Monday-night players
+  workflow_dispatch:
+    inputs:
+      week:
+        description: "Override the NFL week (blank = Sleeper's current week)"
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Unit tests
+        run: npm test
+      - name: Fetch data
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          WEEK: ${{ github.event.inputs.week }}
+        run: |
+          if [ -n "$WEEK" ]; then node scripts/fetch.mjs --week "$WEEK"; else node scripts/fetch.mjs; fi
+      - name: Commit data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "data: refresh $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 5; done
+          exit 1

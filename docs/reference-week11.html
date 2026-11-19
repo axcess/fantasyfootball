@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team Esau · Fantasy Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--ink:#1c1d1f;--mute:#6b6f76;--line:#e6e3dc;--acc:#1f7a4d;--acc2:#e8f3ec;--warn:#b5651d;--warn2:#fbf0e4;--bad:#b3261e;--bad2:#fbe9e7;--blue:#2f5e9e;--blue2:#e8eef8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,system-ui,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;margin-bottom:18px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:15px;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.sub{color:var(--mute);font-size:13px}
+.mu{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.mu .t{font-size:12px;color:var(--mute)}.mu .p{font:600 20px 'JetBrains Mono',monospace}.vs{color:var(--mute);font-size:12px}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px}
+nav button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;font:500 13px Inter;cursor:pointer;color:var(--ink)}
+nav button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse}th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--mute);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--line)}
+td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}tr:last-child td{border-bottom:0}
+.slot{font:600 12px 'JetBrains Mono',monospace;color:var(--mute);width:48px}
+.nm{font-weight:600}.meta{color:var(--mute);font-size:12px}
+.why{font-size:12.5px;color:#3c4046;margin-top:3px}
+.sc{display:flex;align-items:center;gap:8px;min-width:120px}.bar{flex:1;height:6px;background:#eeece7;border-radius:3px;overflow:hidden}.bar i{display:block;height:100%;border-radius:3px}
+.num{font:600 13px 'JetBrains Mono',monospace;width:26px;text-align:right}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.start{background:var(--acc2);color:var(--acc)}.sit{background:#eeece7;color:var(--mute)}.forced{background:var(--bad2);color:var(--bad)}
+.claim{background:var(--bad2);color:var(--bad)}.free{background:var(--acc2);color:var(--acc)}.hold{background:var(--blue2);color:var(--blue)}
+.lvl-h{background:var(--bad2);color:var(--bad)}.lvl-m{background:var(--warn2);color:var(--warn)}.lvl-l{background:#eeece7;color:var(--mute)}
+.chg{color:var(--warn);font-weight:600;font-size:11px}
+.risk{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.risk:last-child{border:0}
+.w{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:8px 0}
+.w input{width:100%;accent-color:var(--acc)}.w b{font:600 13px 'JetBrains Mono',monospace;text-align:right}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 12px;font:500 12px Inter;cursor:pointer}
+.note{font-size:12.5px;color:var(--mute)}ul.cl{margin:6px 0 0;padding-left:18px}ul.cl li{margin:4px 0}
+.sched{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}@media(max-width:760px){.sched{grid-template-columns:1fr}}
+.sched div{border:1px solid var(--line);border-radius:10px;padding:12px}.sched .d{font-weight:700}.sched .now{border-color:var(--acc);background:var(--acc2)}
+.pill{font-size:11px;color:var(--mute);border:1px solid var(--line);border-radius:6px;padding:1px 6px;margin-left:4px}
+.hide{display:none}.scroll{overflow-x:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <h1>Team Esau · Week 11</h1>
+    <div class="sub">Tod's BBQ · 12-team keeper PPR · 4–6 · waiver priority #4 · data pulled Thu Nov 19, 4:30am CT</div>
+  </div>
+  <div class="mu">
+    <div><div class="t">You (Sleeper proj.)</div><div class="p">120.9</div></div>
+    <div class="vs">vs</div>
+    <div><div class="t">HeGibbeth&amp;HeTakethAway</div><div class="p">126.6</div></div>
+  </div>
+</header>
+
+<nav id="tabs">
+  <button data-t="lineup" class="on">Lineup</button>
+  <button data-t="waivers">Waivers</button>
+  <button data-t="risk">Risk list</button>
+  <button data-t="games">Games &amp; weather</button>
+  <button data-t="model">Model weights</button>
+  <button data-t="plan">Weekly plan</button>
+</nav>
+
+<section id="lineup">
+  <div class="card">
+    <h2>Start / sit <span class="pill" id="lu-note">matches your current Sleeper lineup</span></h2>
+    <div class="scroll"><table id="lu"></table></div>
+  </div>
+  <div class="card">
+    <h2>Bench</h2>
+    <div class="scroll"><table id="bn"></table></div>
+  </div>
+  <div class="card">
+    <h2>Opponent: HeGibbeth&amp;HeTakethAway (5–5)</h2>
+    <div class="scroll"><table id="opp"></table></div>
+  </div>
+</section>
+
+<section id="waivers" class="hide">
+  <div class="card">
+    <h2>Ranked adds</h2>
+    <p class="note" style="margin-top:-6px">Only four players cleared the bar this week (a value gain of at least 8 over the player you'd drop, or 5 for K/DEF). Value = 60% rest-of-season score + 40% this week's score.</p>
+    <div class="scroll"><table id="wv"></table></div>
+  </div>
+  <div class="card note">
+    <b style="color:var(--ink)">Labels.</b> <span class="tag claim">Claim now</span> worth dropping to the back of the waiver order. <span class="tag free">Free agent</span> grab it now; it costs no priority. <span class="tag hold">Hold priority</span> on waivers, but not worth giving up your #4 spot.
+  </div>
+</section>
+
+<section id="risk" class="hide">
+  <div class="card">
+    <h2>Watch before kickoff</h2>
+    <div id="rk"></div>
+  </div>
+</section>
+
+<section id="games" class="hide">
+  <div class="card">
+    <h2>Vegas lines, team totals and forecast</h2>
+    <div class="scroll"><table id="gm"></table></div>
+    <p class="note">Lines: VegasInsider consensus as of Thu morning. Implied team total = total ÷ 2 ± spread ÷ 2. Forecast: Open-Meteo, game-day high and max wind. Byes this week: ATL, CLE, GB, LAR, NE, SEA.</p>
+  </div>
+</section>
+
+<section id="model" class="hide">
+  <div class="card">
+    <h2>Scoring weights</h2>
+    <p class="note" style="margin-top:-6px">Each factor is a 0–100 percentile against starting-caliber players at the same position. Move a slider and every score and the lineup recompute. Out, Doubtful, IR and bye players stay on the bench at any score.</p>
+    <div id="wts"></div>
+    <button class="btn" id="reset">Reset to 30 / 25 / 20 / 15 / 10</button>
+  </div>
+  <div class="card note">
+    <b style="color:var(--ink)">What feeds each factor</b>
+    <ul class="cl">
+      <li><b>Opportunity:</b> last 3 games. RB: carries + 1.5×targets + 3×red-zone looks + snap share. WR/TE: 1.5×targets + carries + 3×red-zone targets + snap share. QB: attempts + 2×rushes + red zone. K/DEF: Sleeper's weekly projection.</li>
+      <li><b>Recent form:</b> PPR points per game over the last 3 games played.</li>
+      <li><b>Matchup:</b> PPR points the opponent has allowed per game to that position, weeks 1–10.</li>
+      <li><b>Game environment:</b> implied team total, minus a penalty outdoors for wind 15+ mph, heavy rain or sub-30°F (doubled for kickers; helps DEF).</li>
+      <li><b>Season average:</b> PPR points per game, weeks 1–10.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="plan" class="hide">
+  <div class="card">
+    <h2>Weekly rhythm</h2>
+    <div class="sched">
+      <div><div class="d">Tue / Wed · waiver run</div><div class="note">Top 5 adds, each with a suggested drop and a Claim / Free agent / Hold label.</div></div>
+      <div class="now"><div class="d">Thu afternoon · TNF check ✓</div><div class="note">IND @ HOU tonight. None of your starters play. C.J. Stroud (bench) does. Nothing to change.</div></div>
+      <div><div class="d">Sun morning · final lineup</div><div class="note">Re-pull injury tags after Friday's designations and any inactive news. Also re-check before Monday night: CIN @ WAS holds 4 of your players.</div></div>
+    </div>
+  </div>
+  <div class="card note">
+    <b style="color:var(--ink)">Caveats</b>
+    <ul class="cl">
+      <li>The weights are your starting point, not a proven model. Tune them on the Model tab after a few weeks.</li>
+      <li>Projections are estimates, and late scratches still happen.</li>
+      <li>Sleeper's feed had no practice-participation data this morning, and none of your players carried an injury tag except Pittman (IR). Treat the Sunday re-check as the real injury pass.</li>
+      <li>Depth-chart changes are tracked by snap-share trend this week. A depth snapshot is saved so next week can flag order changes directly.</li>
+    </ul>
+  </div>
+</section>
+</div>
+
+<script>
+const DATA = {
+ me: [
+  {n:"Josh Allen",pos:"QB",tm:"BUF",opp:"MIA",c:[78,81,35,92,94],proj:25.0,cur:"QB",why:"BUF team total 31 (2nd-highest), 95% snaps, 21.6 PPR avg last 3. Miami is middle-of-the-pack vs QBs."},
+  {n:"D'Andre Swift",pos:"RB",tm:"CHI",opp:"NO",c:[92,83,92,85,89],proj:19.5,cur:"RB",why:"20 carries + 2.7 targets per game, snaps up from 51% to 78%. Saints allow the 2nd-most RB points; CHI total 30."},
+  {n:"Emmett Johnson",pos:"RB",tm:"KC",opp:"ARI",c:[51,92,54,55,60],proj:10.6,cur:"RB",why:"23.3 PPR avg last 3 and his snaps are climbing (28% → 46%). KC total 28, docked for a 94% rain / 17 mph wind forecast."},
+  {n:"George Pickens",pos:"WR",tm:"DAL",opp:"TEN",c:[77,94,96,96,88],proj:15.1,cur:"WR",why:"9.3 targets and 22 PPR per game last 3. Titans allow the most WR points; dome game with the week's highest total (DAL 32)."},
+  {n:"Malik Nabers",pos:"WR",tm:"NYG",opp:"JAX",c:[71,64,58,21,83],proj:16.3,cur:"WR",why:"8 targets per game, 77% snaps. Low NYG total (20.3) and a 61% rain chance hold the score down."},
+  {n:"Chig Okonkwo",pos:"TE",tm:"WAS",opp:"CIN",c:[61,44,65,46,33],proj:10.3,cur:"TE",why:"6.3 targets per game, 70% snaps. CIN allows the 9th-most TE points. He's your only TE."},
+  {n:"Josh Downs",pos:"WR",tm:"KC",opp:"ARI",c:[33,57,50,55,41],proj:8.5,cur:"FLEX",why:"Still your best flex option (White 44, Jones 33), but his snaps fell from 87% to 56% and the KC forecast is wet and windy."},
+  {n:"Evan McPherson",pos:"K",tm:"CIN",opp:"WAS",c:[88,44,42,70,69],proj:9.1,cur:"K",why:"CIN team total 30.5 means plenty of kicks. About 15 mph wind in Washington is the drag."},
+  {n:"Cincinnati Bengals",pos:"DEF",tm:"CIN",opp:"WAS",c:[59,31,38,48,84],proj:6.5,cur:"DEF",why:"Solid season average, but 5.3 pts per game last 3 and Washington is implied for 24."},
+  {n:"C.J. Stroud",pos:"QB",tm:"HOU",opp:"IND",c:[44,89,50,77,89],proj:20.3,why:"Strong backup (24.8 PPR avg last 3) on TNF tonight, but Allen's ceiling is higher."},
+  {n:"Rachaad White",pos:"RB",tm:"WAS",opp:"CIN",c:[46,39,42,46,53],proj:8.7,why:"About 12 touches a game, 52% snaps. Monday-night fallback if a RB scratches."},
+  {n:"Aaron Jones Sr.",pos:"RB",tm:"MIN",opp:"SF",c:[33,25,23,42,58],proj:8.8,why:"Snaps dropped from 62% to 40%; 7.2 PPR avg last 3. Top drop candidate."},
+  {n:"Christian Watson",pos:"WR",tm:"GB",opp:"BYE",c:[52,89,50,50,93],proj:0,bye:1,why:"Bye week. 18 PPR avg last 3, so he's back in the mix for Week 12."},
+  {n:"Kyren Williams",pos:"RB",tm:"LAR",opp:"BYE",c:[74,40,50,50,83],proj:0,bye:1,why:"Bye week."},
+  {n:"Seattle Seahawks",pos:"DEF",tm:"SEA",opp:"BYE",c:[0,59,50,50,81],proj:0,bye:1,why:"Bye week. Swap for a streaming defense."},
+  {n:"Michael Pittman Jr.",pos:"WR",tm:"PIT",opp:"PHI",c:[34,16,92,38,4],proj:4.0,inj:"IR",why:"On IR (foot), in your reserve slot."}
+ ],
+ opp: [
+  ["QB","Kirk Cousins","MIN","@SF",57,17.2,""],["RB","Jonah Coleman","DEN","vs LV",78,17.0,""],["RB","Jahmyr Gibbs","DET","vs TB",72,23.5,""],
+  ["WR","Rashee Rice","KC","vs ARI",56,14.9,""],["WR","Garrett Wilson","NYJ","@LAC",71,14.7,""],["TE","Michael Mayer","LV","@DEN",49,8.6,""],
+  ["FLEX","Bhayshul Tuten","JAX","@NYG",68,15.5,"Questionable"],["K","Jason Sanders","NYJ","@LAC",59,7.2,""],["DEF","Jacksonville","JAX","@NYG",81,8.1,""]
+ ],
+ waivers: [
+  {n:"Makai Lemon",pos:"WR",tm:"PHI",opp:"PIT",c:[90,82,46,15,35],val:72,label:"free",drop:"Aaron Jones Sr.",dv:34,why:"93% snaps and 8.7 targets per game over the last 3, 14.5 PPR avg. Locked in as a full-time receiver."},
+  {n:"Adonai Mitchell",pos:"WR",tm:"NYJ",opp:"LAC",c:[82,67,81,27,49],val:69,label:"free",drop:"Rachaad White",dv:44,why:"79% snaps, 8 targets per game, and among Sleeper's most-added players this week. The Chargers matchup grades well."},
+  {n:"Tampa Bay DEF",pos:"DEF",tm:"TB",opp:"DET",c:[44,97,15,35,94],val:65,label:"free",drop:"Seattle DEF",dv:35,why:"18.3 pts per game last 3. Seattle is on bye. Tough Detroit matchup, but it still edges CIN this week (55 vs 49)."},
+  {n:"Cam Little",pos:"K",tm:"JAX",opp:"NYG",c:[78,94,8,58,81],val:77,label:"hold",drop:"Evan McPherson",dv:66,why:"Best kicker available (14 pts per game last 3), but he was just dropped and is on waivers. An 11-point gain isn't worth your #4 priority, so grab him free if he clears."}
+ ],
+ risks: [
+  {lvl:"h",n:"Josh Downs · FLEX",t:"Snap share fell from 87% to 56% over the last 3 games, he's listed WR2 on the depth chart, and the KC forecast is 94% rain with 17 mph wind. Lowest-scoring starter (47). If you add Makai Lemon or Adonai Mitchell, either one starts over him."},
+  {lvl:"m",n:"Chig Okonkwo · TE (Monday night)",t:"Your only tight end, playing in the final game of the week. A late scratch Monday leaves no TE fallback, so consider rostering a backup if he picks up a tag Friday."},
+  {lvl:"m",n:"Emmett Johnson · RB",t:"Hot form, but he's RB2 on KC's depth chart, and the same wet, windy Arrowhead forecast applies. Watch for a split backfield."},
+  {lvl:"m",n:"CIN @ WAS on Monday night",t:"McPherson, the Bengals DEF, Okonkwo and Rachaad White all play Monday. You'll know almost every other result before they do, but you'll have few pivots left."},
+  {lvl:"l",n:"George Pickens · WR",t:"Snaps dipped from 88% to 69% even as production stayed huge. Worth a glance at Dallas' practice report."},
+  {lvl:"l",n:"D'Andre Swift / Malik Nabers",t:"71% and 61% rain chances in Chicago and New Jersey. Light wind, so it's a small ding."},
+  {lvl:"l",n:"Opponent: Bhayshul Tuten",t:"Your opponent's flex is Questionable. If he sits, their 126.6 projection drops."}
+ ],
+ games: [
+  ["Thu","IND","HOU",-12.5,43.5,15.5,28.0,"Dome"],["Sun","MIA","BUF",-16.5,45.5,14.5,31.0,"65°F · 11 mph · 24% rain"],
+  ["Sun","BAL","CAR",-2.5,43.5,20.5,23.0,"68°F · 11 mph · 18% rain"],["Sun","NO","CHI",-11.5,48.5,18.5,30.0,"59°F · 13 mph · 71% rain"],
+  ["Sun","TEN","DAL",-8.5,55.5,23.5,32.0,"Dome"],["Sun","LV","DEN",-10,40.5,15.25,25.25,"47°F · 5 mph · dry"],
+  ["Sun","TB","DET",-7,43.5,18.25,25.25,"Dome"],["Sun","ARI","KC",-15.5,40.5,12.5,28.0,"59°F · 17 mph · 94% rain"],
+  ["Sun","JAX","NYG",6,46.5,26.25,20.25,"59°F · 8 mph · 61% rain"],["Sun","PIT","PHI",4.5,37.5,21.0,16.5,"59°F · 10 mph · 59% rain"],
+  ["Sun","NYJ","LAC",-3,41.5,19.25,22.25,"Indoor"],["Sun","MIN","SF",-3,45.5,21.25,24.25,"58°F · 5 mph · 22% rain"],
+  ["Mon","CIN","WAS",6.5,54.5,30.5,24.0,"63°F · 15 mph · 30% rain"]
+ ],
+ depthSnapshot: {"Malik Nabers":1,"Emmett Johnson":2,"Aaron Jones Sr.":2,"Josh Allen":1,"D'Andre Swift":1,"George Pickens":2,"Kyren Williams":1,"Christian Watson":1,"Chig Okonkwo":1,"Josh Downs":2,"C.J. Stroud":1,"Rachaad White":1}
+};
+
+const NAMES=["Opportunity","Recent form","Matchup","Game environment","Season average"];
+const DEF_W=[30,25,20,15,10];
+let W=DEF_W.slice();
+try{const s=JSON.parse(localStorage.getItem("ffw"));if(Array.isArray(s)&&s.length===5)W=s}catch(e){}
+
+const score=c=>{const t=W.reduce((a,b)=>a+b,0)||1;return Math.round(c.reduce((a,v,i)=>a+v*W[i],0)/t)};
+const col=s=>s>=75?"#1f7a4d":s>=60?"#5a9a3a":s>=45?"#c08a1e":"#b3261e";
+const el=(t,cls,txt)=>{const e=document.createElement(t);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e};
+const scoreCell=s=>{const d=el("div","sc");const b=el("div","bar");const i=el("i");i.style.width=s+"%";i.style.background=col(s);b.append(i);d.append(el("span","num",s),b);return d};
+
+function buildLineup(){
+  const pl=DATA.me.map(p=>({...p,s:score(p.c),forced:!!(p.bye||["Out","Doubtful","IR"].includes(p.inj))}));
+  const avail=pl.filter(p=>!p.forced).sort((a,b)=>b.s-a.s);const used=new Set();
+  const slots=["QB","RB","RB","WR","WR","TE","FLEX","K","DEF"];
+  const lu=slots.map(sl=>{const ok=sl==="FLEX"?["RB","WR","TE"]:[sl];const p=avail.find(x=>!used.has(x.n)&&ok.includes(x.pos));if(p)used.add(p.n);return {sl,p}});
+  const bench=pl.filter(p=>!used.has(p.n)).sort((a,b)=>(a.forced-b.forced)||(b.s-a.s));
+  return {lu,bench,used};
+}
+
+function render(){
+  const {lu,bench}=buildLineup();
+  const T=document.getElementById("lu");T.replaceChildren();
+  const h=el("tr");["Slot","Player","Score","Call"].forEach(x=>h.append(el("th",null,x)));T.append(h);
+  let changes=0;
+  lu.forEach(({sl,p})=>{const r=el("tr");r.append(el("td","slot",sl));
+    const td=el("td");const nm=el("div","nm",p.n);const m=el("span","meta",` ${p.pos} · ${p.tm} vs ${p.opp} · proj ${p.proj}`);nm.append(m);
+    if(!p.cur){changes++;nm.append(el("span","chg"," ← lineup change"))}
+    td.append(nm,el("div","why",p.why));r.append(td);
+    const sc=el("td");sc.append(scoreCell(p.s));r.append(sc);const c=el("td");c.append(el("span","tag start","START"));r.append(c);T.append(r)});
+  document.getElementById("lu-note").textContent=changes?`${changes} change(s) from your Sleeper lineup`:"matches your current Sleeper lineup";
+  const B=document.getElementById("bn");B.replaceChildren();
+  const hb=el("tr");["Player","Score","Call"].forEach(x=>hb.append(el("th",null,x)));B.append(hb);
+  bench.forEach(p=>{const r=el("tr");const td=el("td");const nm=el("div","nm",p.n);nm.append(el("span","meta",` ${p.pos} · ${p.tm}${p.bye?" · BYE":" vs "+p.opp}`));td.append(nm,el("div","why",p.why));r.append(td);
+    const sc=el("td");sc.append(scoreCell(p.s));r.append(sc);const c=el("td");c.append(el("span",p.forced?"tag forced":"tag sit",p.bye?"BYE":p.inj?p.inj:"SIT"));r.append(c);B.append(r)});
+  const W2=document.getElementById("wv");W2.replaceChildren();
+  const hw=el("tr");["#","Add","This wk","Suggested drop","Label"].forEach(x=>hw.append(el("th",null,x)));W2.append(hw);
+  DATA.waivers.forEach((a,i)=>{const r=el("tr");r.append(el("td","slot",String(i+1)));const td=el("td");const nm=el("div","nm",a.n);nm.append(el("span","meta",` ${a.pos} · ${a.tm} vs ${a.opp} · value ${a.val}`));td.append(nm,el("div","why",a.why));r.append(td);
+    const sc=el("td");sc.append(scoreCell(score(a.c)));r.append(sc);const d=el("td");d.append(el("div","nm",a.drop),el("div","meta",`value ${a.dv} (+${a.val-a.dv})`));r.append(d);
+    const l=el("td");l.append(el("span","tag "+(a.label==="claim"?"claim":a.label==="free"?"free":"hold"),a.label==="claim"?"Claim now":a.label==="free"?"Free agent":"Hold priority"));r.append(l);W2.append(r)});
+}
+
+function static_(){
+  const O=document.getElementById("opp");const h=el("tr");["Slot","Player","Score","Proj"].forEach(x=>h.append(el("th",null,x)));O.append(h);
+  DATA.opp.forEach(o=>{const r=el("tr");r.append(el("td","slot",o[0]));const td=el("td");const nm=el("div","nm",o[1]);nm.append(el("span","meta",` ${o[2]} ${o[3]}`));if(o[6])nm.append(el("span","tag lvl-m",o[6]));td.append(nm);r.append(td);
+    const sc=el("td");sc.append(scoreCell(o[4]));r.append(sc);r.append(el("td","num",o[5].toFixed(1)));O.append(r)});
+  const R=document.getElementById("rk");DATA.risks.forEach(k=>{const d=el("div","risk");d.append(el("span","tag lvl-"+k.lvl,k.lvl==="h"?"High":k.lvl==="m"?"Watch":"Low"));const t=el("div");t.append(el("div","nm",k.n),el("div","why",k.t));d.append(t);R.append(d)});
+  const G=document.getElementById("gm");const hg=el("tr");["Day","Matchup","Spread","Total","Away TT","Home TT","Forecast"].forEach(x=>hg.append(el("th",null,x)));G.append(hg);
+  DATA.games.forEach(g=>{const r=el("tr");r.append(el("td","slot",g[0]));r.append(el("td","nm",`${g[1]} @ ${g[2]}`));r.append(el("td",null,`${g[3]<0?g[2]:g[1]} -${Math.abs(g[3])}`));r.append(el("td","num",g[4]));r.append(el("td","num",g[5]));r.append(el("td","num",g[6]));r.append(el("td","meta",g[7]));G.append(r)});
+  const WT=document.getElementById("wts");
+  NAMES.forEach((n,i)=>{const row=el("div","w");row.append(el("span",null,n));const inp=el("input");inp.type="range";inp.min=0;inp.max=50;inp.value=W[i];const b=el("b",null,W[i]+"%");
+    inp.addEventListener("input",()=>{W[i]=+inp.value;b.textContent=W[i]+"%";try{localStorage.setItem("ffw",JSON.stringify(W))}catch(e){}render()});row.append(inp,b);WT.append(row)});
+  document.getElementById("reset").addEventListener("click",()=>{W=DEF_W.slice();try{localStorage.removeItem("ffw")}catch(e){}WT.querySelectorAll(".w").forEach((r,i)=>{r.querySelector("input").value=W[i];r.querySelector("b").textContent=W[i]+"%"});render()});
+  document.querySelectorAll("#tabs button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#tabs button").forEach(x=>x.classList.toggle("on",x===b));document.querySelectorAll("section").forEach(s=>s.classList.toggle("hide",s.id!==b.dataset.t))}));
+}
+static_();render();
+</script>
+</body>
+</html>
